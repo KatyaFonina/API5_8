@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>drag and drop</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <h2 style="text-align: center;font-family: Verdana;color: #542632;">Мои задачи </h2>
+
+    <div class="parent">
+
+
+        <div class="div1" id="drop-zone1">
+            <div class="sticker sticker-pink" draggable="true">
+                <div class="sticker-content">
+                    <div class="sticker-header">
+                        <div draggable="true" class="item">Закрыть СУБД</div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="sticker sticker-pink" draggable="true">
+                <div class="sticker-content">
+                    <div class="sticker-header">
+                        <div draggable="true" class="item">Использовать Drag & Drop</div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="sticker sticker-pink" draggable="true">
+                <div class="sticker-content">
+                    <div class="sticker-header">
+                        <div class="item">Купить машину</div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="div2" id="drop-zone2">
+
+            <div class="sticker sticker-pink" draggable="true">
+                <div class="sticker-content">
+                    <div class="sticker-header">
+                        <div  class="item">Мои кт по предметам</div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="div3" id="drop-zone3"></div>
+
+
+        <div class="div4">
+            <h3>В работе</h3>
+
+        </div>
+
+        <div class="div5">
+            <h3>На проверке</h3>
+        </div>
+        <div class="div6">
+            <h3>Готово</h3>
+        </div>
+    </div>
+
+
+    <script>
+
+        
+
+
+        document.querySelectorAll('.sticker-pink').forEach(sticker => {
+            const rotation = (Math.random() * 10) - 5;
+            sticker.style.setProperty('--rotation', `${rotation}deg`);
+        });
+
+        let x;
+        document.querySelectorAll('.sticker').forEach(zadacha => {
+            zadacha.addEventListener('dragstart', function (e) {
+                e.dataTransfer.setData('text/html', this.outerHTML)
+                x = this;
+
+            })
+        })
+
+        const zone = document.getElementById('drop-zone3');
+
+        zone.addEventListener('dragover', function (e) {
+            e.preventDefault();
+            this.style.boxShadow = '0 0 10px green';
+        })
+
+        zone.addEventListener('dragleave', function (e) {
+            this.style.boxShadow = 'none';
+        })
+
+        zone.addEventListener('drop', function (e) {
+            e.preventDefault();
+            this.style.boxShadow = 'none';
+            const zadachka = e.dataTransfer.getData('text/html')
+            this.innerHTML += `<div > ${zadachka}</div>`;
+
+            if(x){
+                x.remove();
+                x = null
+            }
+
+        })
+
+
+
+        const zone1 = document.getElementById('drop-zone1');
+
+        zone1.addEventListener('dragover', function (e) {
+            e.preventDefault();
+            this.style.boxShadow = '0 0 10px green';
+        })
+
+        zone1.addEventListener('dragleave', function (e) {
+            this.style.filter = 'none';
+        })
+
+        zone1.addEventListener('drop', function (e) {
+            e.preventDefault();
+            this.style.boxShadow = 'none';
+            const zadachka = e.dataTransfer.getData('text/html')
+            this.innerHTML += `<div > ${zadachka}</div>`;
+
+            if(x){
+                x.remove();
+                x = null
+            }
+
+        })
+
+
+
+
+
+        const zone2 = document.getElementById('drop-zone2');
+
+        zone2.addEventListener('dragover', function (e) {
+            e.preventDefault();
+            this.style.boxShadow = '0 0 10px green';
+        })
+
+        zone2.addEventListener('dragleave', function (e) {
+            this.style.filter = 'none';
+        })
+
+        zone2.addEventListener('drop', function (e) {
+            e.preventDefault();
+            this.style.boxShadow = 'none';
+            const zadachka = e.dataTransfer.getData('text/html')
+            this.innerHTML += `<div > ${zadachka}</div>`;
+
+            if(x){
+                x.remove();
+                x = null
+            }
+
+        })
+
+
+    </script>
+
+</body>
+
+</html>
